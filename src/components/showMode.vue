@@ -1,6 +1,6 @@
 <template>
   <v-switch
-    class="ml-4 pa-1 pl-2"
+    class="ml-4"
     hide-details
     v-model="showMode"
     inset
