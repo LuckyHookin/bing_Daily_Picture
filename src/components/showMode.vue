@@ -1,12 +1,8 @@
 <template>
-  <v-switch
-    class="ml-4"
-    hide-details
-    v-model="showMode"
-    inset
-  >
-    <template v-slot:label><v-icon>mdi-brightness-4</v-icon></template>
-  </v-switch>
+<v-btn icon class="ml-4" @click="showMode=!showMode">
+    <v-icon>mdi-brightness-4</v-icon>
+</v-btn>
+  
 </template>
 
 <script>
