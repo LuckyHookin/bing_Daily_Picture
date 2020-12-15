@@ -27,6 +27,7 @@
 
 <script>
 import showMode from "./showMode";
+import Bus from './../plugins/bus'
 export default {
   components: {
     showMode,
@@ -42,8 +43,7 @@ export default {
   },
   watch: {
       date(newValue) {
-          newValue;
-          
+          Bus.$emit("date",newValue);
       }
   },
 };
