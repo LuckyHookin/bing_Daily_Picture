@@ -16,6 +16,7 @@
       v-model="date"
       type="month"
       min="2020-12"
+      :max="new Date().getUTCFullYear()+'-'+(new Date().getUTCMonth()+1)"
     ></v-date-picker>
     </v-menu>
       <showMode></showMode>
