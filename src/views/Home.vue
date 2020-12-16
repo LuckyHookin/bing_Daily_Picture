@@ -2,10 +2,7 @@
   <v-container>
     <v-row>
       <v-col cols="12" sm="6" md="4" v-for="(item,index) in pictList" :key="index">
-        <v-card hover><v-img :src="item.url">
-        </v-img>
-        <v-card-subtitle @click="link(item.copyrightlink)">{{item.copyright}} <v-icon>mdi-link</v-icon></v-card-subtitle>
-        </v-card>
+        <pictCard :pict="item"></pictCard>
       </v-col>
     </v-row>
   </v-container>
@@ -13,10 +10,15 @@
 
 <script>
 import Bus from './../plugins/bus'
+import pictCard from './../components/pictCard'
 export default {
+  components: {
+    pictCard,
+  },
   data: () => ({
     date:'',
-    pictList:["2","3"]
+    pictList:null,
+    showEye:[]
   }),
   methods: {
     link(e) {
