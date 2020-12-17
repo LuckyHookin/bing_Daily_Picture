@@ -26,8 +26,8 @@
                   ><v-icon>mdi-eye</v-icon></v-btn
                 >
                 <v-menu left offset-y v-model="showMenu" :close-on-content-click="false" :close-delay="200">
-                  <template v-slot:activator="{  }">
-                    <v-btn icon  small @click="showMenu=!showMenu"
+                  <template v-slot:activator="{ on, arrs }">
+                    <v-btn icon  small v-on="on" v-bind="arrs"
                       ><v-icon color="white">mdi-copyright</v-icon></v-btn
                     >
                   </template>
@@ -84,9 +84,7 @@ export default {
     onMouseLeave() {
       console.log("out");
       this.hasMouseInCard=false;
-      setTimeout(() => {
         this.showEye = this.showMenu;
-      }, 200);
     },
     onMouseEnter(){
       console.log("in");
