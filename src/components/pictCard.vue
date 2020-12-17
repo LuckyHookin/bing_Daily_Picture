@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-card dark hover @mouseleave="onMouseLeave" @mouseenter="showEye = true">
+    <v-card dark hover @mouseleave="onMouseLeave" @mouseenter="onMouseEnter">
       <v-img
         :src="pict.url"
         lazy-src="https://placehold.it/300x200/09f/fff.png?text=loading..."
@@ -16,25 +16,24 @@
               style="height: 100%"
             >
               <div>
-                {{ pict.copyright }}
-                {{ new Date(pict.date).toLocaleDateString() }}
+                {{ getTitle(pict.copyright) }}
+                <div>
+                  {{ new Date(pict.date).toLocaleDateString() }}
+                </div>
               </div>
               <div class="d-flex justify-space-between">
                 <v-btn color="primary" rounded small
                   ><v-icon>mdi-eye</v-icon></v-btn
                 >
-                <v-menu v-model="showMenu" top offset-y>
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn icon v-bind="attrs" v-on="on" small
-                      ><v-icon color="white">mdi-link</v-icon></v-btn
+                <v-menu left offset-y v-model="showMenu" :close-on-content-click="false" :close-delay="200">
+                  <template v-slot:activator="{  }">
+                    <v-btn icon  small @click="showMenu=!showMenu"
+                      ><v-icon color="white">mdi-copyright</v-icon></v-btn
                     >
                   </template>
-
-                  <v-list>
-                    <v-list-item v-for="(item, index) in 3" :key="index">
-                      <v-list-item-title>{{ item }}</v-list-item-title>
-                    </v-list-item>
-                  </v-list>
+                  <v-sheet class="px-2">
+                    {{ getCopyright(pict.copyright) }}<v-icon small right @click="showMenu=false;link(pict.copyrightlink)">mdi-link</v-icon>
+                  </v-sheet>
                 </v-menu>
               </div>
             </div>
@@ -72,6 +71,7 @@
 export default {
   data() {
     return {
+      hasMouseInCard:false,
       showEye: false,
       showOverlay: false,
       showMenu: false,
@@ -82,20 +82,34 @@ export default {
       window.open(link);
     },
     onMouseLeave() {
+      console.log("out");
+      this.hasMouseInCard=false;
       setTimeout(() => {
         this.showEye = this.showMenu;
       }, 200);
     },
+    onMouseEnter(){
+      console.log("in");
+      this.hasMouseInCard=true;
+      this.showEye = true;
+    },
+    getTitle(value = "") {
+      let lastIndex = value.indexOf("(©");
+      return value.slice(0, lastIndex);
+    },
+    getCopyright(value = "") {
+      let firstIndex = value.indexOf("(©");
+      return value.slice(firstIndex+1,-1);
+    },
   },
   watch: {
     showMenu(newValue) {
-      if (newValue==false) {
-        this.showEye=false
+      if (newValue==false&&this.hasMouseInCard==false) {
+        this.showEye = false;
       }
-    }
+    },
   },
   props: {
-    // JSON 配置
     pict: Object,
   },
 };
