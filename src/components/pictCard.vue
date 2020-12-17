@@ -7,6 +7,7 @@
       >
         <v-fade-transition>
           <div
+            @click="showOverlay = true"
             v-if="showEye"
             style="background-color: #00000055; height: 100%"
             class="pa-4 white--text"
@@ -22,17 +23,38 @@
                 </div>
               </div>
               <div class="d-flex justify-space-between">
-                <v-btn color="primary" rounded small
-                  ><v-icon>mdi-eye</v-icon></v-btn
+                <div>
+                  <v-btn
+                    color="primary"
+                    rounded
+                    small
+                    @click="showOverlay = true"
+                    ><v-icon>mdi-eye</v-icon></v-btn
+                  >
+                </div>
+                <v-menu
+                  left
+                  offset-y
+                  v-model="showMenu"
+                  :close-on-content-click="false"
+                  :close-delay="200"
                 >
-                <v-menu left offset-y v-model="showMenu" :close-on-content-click="false" :close-delay="200">
                   <template v-slot:activator="{ on, arrs }">
-                    <v-btn icon  small v-on="on" v-bind="arrs"
+                    <v-btn icon small v-on="on" v-bind="arrs"
                       ><v-icon color="white">mdi-copyright</v-icon></v-btn
                     >
                   </template>
                   <v-sheet class="px-2">
-                    {{ getCopyright(pict.copyright) }}<v-icon small right @click="showMenu=false;link(pict.copyrightlink)">mdi-link</v-icon>
+                    {{ getCopyright(pict.copyright)
+                    }}<v-icon
+                      small
+                      right
+                      @click="
+                        showMenu = false;
+                        link(pict.copyrightlink);
+                      "
+                      >mdi-link</v-icon
+                    >
                   </v-sheet>
                 </v-menu>
               </div>
@@ -42,25 +64,37 @@
       </v-img>
     </v-card>
     <v-overlay :value="showOverlay">
-      <v-container
-        fluid
-        style="width: 100vw; height: 100vh"
-        @click="showOverlay = false"
-      >
-        <v-row>
-          <v-card height="80" max-height="80vh">
-            <v-img :src="pict.url"></v-img>
-            <v-card-title primary-title>
-              <div>
-                <h3 class="headline mb-0">headline</h3>
-                <div>description</div>
-              </div>
-            </v-card-title>
-            <v-card-actions>
-              <v-btn flat color="primary">text</v-btn>
-              <v-btn flat color="primary">text</v-btn>
-            </v-card-actions>
-          </v-card>
+      <v-container fluid @click="showOverlay = false">
+        <v-row style="width: 100vw; height: 100vh">
+          <v-col align-self="center">
+            <v-card>
+              <v-img
+                lazy-src="https://placehold.it/300x200/09f/fff.png?text=loading..."
+                :src="pict.url"
+                max-height="90vh"
+              ></v-img>
+              <v-card-actions>
+                <v-btn
+                  dark
+                  color="primary"
+                  small
+                  class="mr-2"
+                  @click="download(pict.url, pict.date)"
+                  ><v-icon color="white" left>mdi-file-download</v-icon
+                  >全高清下载</v-btn
+                >
+                <v-btn
+                  dark
+                  color="primary"
+                  small
+                  class="ml-2"
+                  @click="download(pict.uhdurl, pict.date)"
+                  ><v-icon color="white" left>mdi-file-download</v-icon
+                  >超高清下载</v-btn
+                >
+              </v-card-actions>
+            </v-card>
+          </v-col>
         </v-row>
       </v-container>
     </v-overlay>
@@ -68,10 +102,11 @@
 </template>
 
 <script>
+import JsFileDownloader from "js-file-downloader";
 export default {
   data() {
     return {
-      hasMouseInCard:false,
+      hasMouseInCard: false,
       showEye: false,
       showOverlay: false,
       showMenu: false,
@@ -83,12 +118,12 @@ export default {
     },
     onMouseLeave() {
       console.log("out");
-      this.hasMouseInCard=false;
-        this.showEye = this.showMenu;
+      this.hasMouseInCard = false;
+      this.showEye = this.showMenu;
     },
-    onMouseEnter(){
+    onMouseEnter() {
       console.log("in");
-      this.hasMouseInCard=true;
+      this.hasMouseInCard = true;
       this.showEye = true;
     },
     getTitle(value = "") {
@@ -97,12 +132,19 @@ export default {
     },
     getCopyright(value = "") {
       let firstIndex = value.indexOf("(©");
-      return value.slice(firstIndex+1,-1);
+      return value.slice(firstIndex + 1, -1);
+    },
+    download(url, date) {
+      new JsFileDownloader({
+        url,
+        filename: new Date(date).toLocaleDateString() + "_Bing.jpg",
+        forceDesktopMode: true,
+      });
     },
   },
   watch: {
     showMenu(newValue) {
-      if (newValue==false&&this.hasMouseInCard==false) {
+      if (newValue == false && this.hasMouseInCard == false) {
         this.showEye = false;
       }
     },
