@@ -12,6 +12,15 @@
     </v-row>
     <v-row>
       <v-col>
+        <v-tooltip color="success" top v-model="showStarTip">
+          <template v-slot:activator="{}">
+            <v-btn @click="onStar" class="mr-4" rounded color="primary">
+              <v-icon left>mdi-heart-circle</v-icon>
+              赞 {{ star }}
+            </v-btn>
+          </template>
+          <span>👌 感谢鼓励~</span>
+        </v-tooltip>
         <div class="float-right">仅提供检索服务. <v-btn color="info" text @click="link('//hookin.fun')"><v-icon left>mdi-home</v-icon>我的小破招</v-btn></div>
       </v-col>
     </v-row>
@@ -28,12 +37,28 @@ export default {
   data: () => ({
     date:'',
     pictList:null,
-    showEye:[]
+    showEye:[],
+    star:0,
+    showStarTip: false,
+    time:null,
   }),
   methods: {
     link(e) {
       window.open(e)
-    }
+    },
+    onStar() {
+      this.axios.get("index/setStar").then((response) => {
+        // console.log(response);
+        this.star = response.data.star;
+        this.showStarTip = true;
+        this.time=Date.parse(new Date());
+        setTimeout(() => {
+          if (this.time+2000 <= new Date()) {
+            this.showStarTip = false;
+          }
+        }, 2000);
+      });
+    },
   },
   mounted () {
     Bus.$on("date",(value)=>{
@@ -46,6 +71,12 @@ export default {
         this.pictList=e.data.list
       })
     }
+  },
+  created () {
+    this.axios.get("index/getStar").then((response) => {
+      // console.log(response);
+      this.star = response.data.star;
+    });
   },
 };
 </script>

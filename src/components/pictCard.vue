@@ -119,12 +119,12 @@ export default {
       window.open(link);
     },
     onMouseLeave() {
-      console.log("out");
+      // console.log("out");
       this.hasMouseInCard = false;
       this.showEye = this.showMenu;
     },
     onMouseEnter() {
-      console.log("in");
+      // console.log("in");
       this.hasMouseInCard = true;
       this.showEye = true;
     },
