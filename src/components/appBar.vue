@@ -8,9 +8,9 @@
       <v-spacer></v-spacer>
 
       
-      <v-menu open-on-hover offset-y :close-on-content-click="false" close-delay="200">
+      <v-menu v-model="showMenu" open-on-hover offset-y :close-on-content-click="false" close-delay="200">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn small color="primary" outlined v-bind="attrs" v-on="on"><v-icon left>mdi-calendar-search</v-icon>{{date.toString()}}</v-btn>
+        <v-btn small color="primary" outlined v-bind="attrs" v-on="on" @click="showMenu=!showMenu"><v-icon left>mdi-calendar-search</v-icon>{{date.toString()}}</v-btn>
       </template>
     <v-date-picker
       v-model="date"
@@ -36,6 +36,7 @@ export default {
   data() {
       return {
           date: "",
+          showMenu:false,
       }
   },
   created () {
