@@ -4,7 +4,7 @@
       <v-img
         :aspect-ratio="16/9"
         :src="pict.url"
-        lazy-src="https://placehold.it/300x200/09f/fff.png?text=loading..."
+        lazy-src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-aliyun-n9lnf7pbvlma3009bf/182a2400-410c-11eb-bd01-97bc1429a9ff.svg"
       >
         <v-fade-transition>
           <div
@@ -71,7 +71,7 @@
             <v-card>
               <v-img
                 :aspect-ratio="16/9"
-                lazy-src="https://placehold.it/300x200/09f/fff.png?text=loading..."
+                lazy-src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-aliyun-n9lnf7pbvlma3009bf/182a2400-410c-11eb-bd01-97bc1429a9ff.svg"
                 :src="pict.url"
                 max-height="90vh"
               ></v-img>
