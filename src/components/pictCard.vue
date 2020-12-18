@@ -8,7 +8,7 @@
       >
         <v-fade-transition>
           <div
-            @click.stop="showOverlay=true"
+            @click.stop="showOverlay=!showMenu"
             v-if="showEye"
             style="background-color: #00000055; height: 100%"
             class="pa-4 white--text"
