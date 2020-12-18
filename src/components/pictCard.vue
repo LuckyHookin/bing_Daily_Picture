@@ -1,14 +1,22 @@
 <template>
   <v-container>
-    <v-card dark hover @mouseleave="onMouseLeave" @mouseenter="$vuetify.breakpoint.mdAndUp?onMouseEnter():false" @click="showEye=true">
-      <v-img
-        :aspect-ratio="16/9"
-        :src="pict.url"
-        lazy-src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-aliyun-n9lnf7pbvlma3009bf/182a2400-410c-11eb-bd01-97bc1429a9ff.svg"
-      >
+    <v-card
+      dark
+      hover
+      @mouseleave="onMouseLeave"
+      @mouseenter="$vuetify.breakpoint.mdAndUp ? onMouseEnter() : false"
+      @click="showEye = true"
+    >
+      <v-img class="blue-grey lighten-4" :aspect-ratio="16 / 9" :src="pict.url">
+        <template v-slot:placeholder>
+          <v-row justify="center" align="center" style="height: 100%">
+            <v-icon size="60">mdi-white-balance-sunny mdi-spin</v-icon>
+          </v-row>
+        </template>
+
         <v-fade-transition>
           <div
-            @click.stop="showOverlay=!showMenu"
+            @click.stop="showOverlay = !showMenu"
             v-if="showEye"
             style="background-color: #00000055; height: 100%"
             class="pa-4 white--text"
@@ -70,11 +78,17 @@
           <v-col align-self="center">
             <v-card>
               <v-img
-                :aspect-ratio="16/9"
-                lazy-src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-aliyun-n9lnf7pbvlma3009bf/182a2400-410c-11eb-bd01-97bc1429a9ff.svg"
+                class="blue-grey lighten-4"
+                :aspect-ratio="16 / 9"
                 :src="pict.url"
                 max-height="90vh"
-              ></v-img>
+              >
+                <template v-slot:placeholder>
+                  <v-row justify="center" align="center" style="height: 100%">
+                    <v-icon size="60">mdi-white-balance-sunny mdi-spin</v-icon>
+                  </v-row>
+                </template>
+              </v-img>
               <v-card-actions>
                 <v-btn
                   dark
