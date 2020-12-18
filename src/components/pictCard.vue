@@ -138,7 +138,6 @@ export default {
       new JsFileDownloader({
         url,
         filename: new Date(date).toLocaleDateString() + "_Bing.jpg",
-        forceDesktopMode: true,
       });
     },
   },
