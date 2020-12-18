@@ -1,13 +1,14 @@
 <template>
   <v-container>
-    <v-card dark hover @mouseleave="onMouseLeave" @mouseenter="onMouseEnter">
+    <v-card dark hover @mouseleave="onMouseLeave" @mouseenter="$vuetify.breakpoint.mdAndUp?onMouseEnter():false" @click="showEye=true">
       <v-img
+        :aspect-ratio="16/9"
         :src="pict.url"
         lazy-src="https://placehold.it/300x200/09f/fff.png?text=loading..."
       >
         <v-fade-transition>
           <div
-            @click="showOverlay = true"
+            @click.stop="showOverlay=true"
             v-if="showEye"
             style="background-color: #00000055; height: 100%"
             class="pa-4 white--text"
@@ -28,7 +29,7 @@
                     color="primary"
                     rounded
                     small
-                    @click="showOverlay = true"
+                    @click.stop="showOverlay = true"
                     ><v-icon>mdi-eye</v-icon></v-btn
                   >
                 </div>
@@ -39,8 +40,8 @@
                   :close-on-content-click="false"
                   :close-delay="200"
                 >
-                  <template v-slot:activator="{ on, arrs }">
-                    <v-btn icon small v-on="on" v-bind="arrs"
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn icon small v-on="on" v-bind="attrs"
                       ><v-icon color="white">mdi-copyright</v-icon></v-btn
                     >
                   </template>
@@ -69,6 +70,7 @@
           <v-col align-self="center">
             <v-card>
               <v-img
+                :aspect-ratio="16/9"
                 lazy-src="https://placehold.it/300x200/09f/fff.png?text=loading..."
                 :src="pict.url"
                 max-height="90vh"
