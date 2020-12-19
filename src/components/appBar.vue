@@ -8,7 +8,7 @@
       <v-spacer></v-spacer>
 
       
-      <v-menu open-on-click offset-y :close-on-content-click="false" close-delay="200">
+      <v-menu offset-y :close-on-content-click="false">
       <template v-slot:activator="{ attrs,on }">
         <v-btn small color="primary" outlined v-on="on" v-bind="attrs"><v-icon left>mdi-calendar-search</v-icon>{{date.toString()}}</v-btn>
       </template>
