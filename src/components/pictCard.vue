@@ -114,6 +114,7 @@
         </v-row>
       </v-container>
     </v-overlay>
+    <v-snackbar app v-model="showSnackbar" color="primary">请稍等……</v-snackbar>
   </v-container>
 </template>
 
@@ -126,6 +127,7 @@ export default {
       showEye: false,
       showOverlay: false,
       showMenu: false,
+      showSnackbar:false,
     };
   },
   methods: {
@@ -151,10 +153,14 @@ export default {
       return value.slice(firstIndex + 1, -1);
     },
     download(url, date) {
+      this.showSnackbar=true;
       new JsFileDownloader({
         url,
         filename: new Date(date).toLocaleDateString() + "_Bing.jpg",
+      }).then(()=>{
+        this.showSnackbar=false;
       });
+      
     },
   },
   watch: {
