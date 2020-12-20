@@ -14,8 +14,10 @@ export default {
   watch: {
     showMode(newValue) {
       this.$vuetify.theme.dark = newValue;
-      window.localStorage.removeItem("showMode");
-      window.localStorage.setItem("showMode", newValue);
+      if (window.localStorage.getItem("showMode") !== null) {
+        window.localStorage.removeItem("showMode");
+        window.localStorage.setItem("showMode", newValue);
+      }
     },
   },
   created() {
