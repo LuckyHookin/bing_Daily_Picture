@@ -1,12 +1,18 @@
 <template>
   <v-container>
     <v-row v-if="!pictList">
-      <v-col cols="12" sm="6" md="4" v-for="(item,index) in 9" :key="index">
+      <v-col cols="12" sm="6" md="4" v-for="(item, index) in 9" :key="index">
         <v-skeleton-loader type="image"></v-skeleton-loader>
       </v-col>
     </v-row>
     <v-row v-else>
-      <v-col cols="12" sm="6" md="4" v-for="(item,index) in pictList" :key="index">
+      <v-col
+        cols="12"
+        sm="6"
+        md="4"
+        v-for="(item, index) in pictList"
+        :key="index"
+      >
         <pictCard :pict="item"></pictCard>
       </v-col>
     </v-row>
@@ -14,65 +20,74 @@
       <v-col>
         <v-tooltip color="success" top v-model="showStarTip">
           <template v-slot:activator="{}">
-            <v-btn @click="onStar" class="mr-4" rounded color="primary">
+            <v-btn @click="onStar" rounded color="primary">
               <v-icon left>mdi-heart-circle</v-icon>
               赞 {{ star }}
             </v-btn>
           </template>
           <span>👌 感谢鼓励~</span>
         </v-tooltip>
-        <div class="float-right">仅提供检索服务. <v-btn color="info" text @click="link('//hookin.fun')"><v-icon left>mdi-home</v-icon>我的小破招</v-btn></div>
+      </v-col>
+      <v-col>
+        <div class="text-right">
+          仅提供检索服务.
+          <v-btn color="info" text @click="link('//hookin.fun')"
+            ><v-icon left>mdi-home</v-icon>我的小破招</v-btn
+          >
+        </div>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import Bus from './../plugins/bus'
-import pictCard from './../components/pictCard'
+import Bus from "./../plugins/bus";
+import pictCard from "./../components/pictCard";
 export default {
   components: {
     pictCard,
   },
   data: () => ({
-    date:'',
-    pictList:null,
-    showEye:[],
-    star:0,
+    date: "",
+    pictList: null,
+    showEye: [],
+    star: 0,
     showStarTip: false,
-    time:null,
+    time: null,
   }),
   methods: {
     link(e) {
-      window.open(e)
+      window.open(e);
     },
     onStar() {
       this.axios.get("index/setStar").then((response) => {
         // console.log(response);
         this.star = response.data.star;
         this.showStarTip = true;
-        this.time=Date.parse(new Date());
+        this.time = Date.parse(new Date());
         setTimeout(() => {
-          if (this.time+2000 <= new Date()) {
+          if (this.time + 2000 <= new Date()) {
             this.showStarTip = false;
           }
         }, 2000);
       });
     },
   },
-  mounted () {
-    Bus.$on("date",(value)=>{
-      this.date=value
-    })
+  mounted() {
+    Bus.$on("date", (value) => {
+      this.date = value;
+    });
   },
   watch: {
     date(newValue) {
-      this.axios.get("dailyPict/getBingPictByMounth",{params:{date:newValue}}).then((e)=>{
-        this.pictList=e.data.list
-      })
-    }
+      this.axios
+        .get("dailyPict/getBingPictByMounth", { params: { date: newValue } })
+        .then((e) => {
+          this.pictList = e.data.list;
+        });
+    },
   },
-  created () {
+  created() {
     this.axios.get("index/getStar").then((response) => {
       // console.log(response);
       this.star = response.data.star;
