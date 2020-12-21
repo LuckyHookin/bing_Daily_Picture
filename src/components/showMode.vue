@@ -32,16 +32,6 @@ export default {
         }
         break;
     }
-
-    if (
-      window.localStorage.getItem("showMode") === null &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-    ) {
-      this.showMode = true;
-    } else {
-      this.showMode =
-        window.localStorage.getItem("showMode") === "true" ? true : false;
-    }
   },
 };
 </script>
