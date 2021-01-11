@@ -10,7 +10,7 @@
       
       <v-menu v-model="showMenu" offset-y :close-on-content-click="false">
       <template v-slot:activator="{ attrs,on }">
-        <v-btn small color="primary" outlined v-on="on" v-bind="attrs"><v-icon left>mdi-calendar-search</v-icon>{{date.toString()}}</v-btn>
+        <v-btn small color="primary" v-on="on" v-bind="attrs"><v-icon left>mdi-calendar-search</v-icon>{{date.toString()}}</v-btn>
       </template>
     <v-date-picker
       v-model="date"
