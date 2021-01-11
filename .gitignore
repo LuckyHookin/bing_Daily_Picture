@@ -21,6 +21,6 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
-/cloudfunctions-aliyun/
+/uniCloud-aliyun/
 /src/pages.json
 /src/manifest.json
