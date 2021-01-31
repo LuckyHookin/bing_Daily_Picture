@@ -53,24 +53,21 @@ export default {
     showEye: [],
     star: 0,
     showStarTip: false,
-    time: null,
   }),
   methods: {
     link(e) {
       window.open(e);
     },
     onStar() {
-      this.axios.get("index/setStar").then((response) => {
+      this.axios.get("index/setStar").then(() => {
         // console.log(response);
-        this.star = response.data.star;
-        this.showStarTip = true;
-        this.time = Date.parse(new Date());
-        setTimeout(() => {
-          if (this.time + 2000 <= new Date()) {
-            this.showStarTip = false;
-          }
-        }, 2000);
       });
+      this.star += 1;
+      if (this.showStarTip == true) return true;
+      this.showStarTip = true;
+      setTimeout(() => {
+        this.showStarTip = false;
+      }, 2000);
     },
   },
   mounted() {
