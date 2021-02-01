@@ -15,5 +15,8 @@ Vue.use(VueAxios, instance)
 new Vue({
   router,
   vuetify,
-  render: h => h(App)
+  render: h => h(App),
+  mounted() {
+    document.dispatchEvent(new Event('render-event'))
+  }
 }).$mount('#app')
