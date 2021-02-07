@@ -119,7 +119,8 @@
 </template>
 
 <script>
-import JsFileDownloader from "js-file-downloader";
+// import JsFileDownloader from "js-file-downloader";
+import FileSaver from 'file-saver';
 export default {
   data() {
     return {
@@ -154,13 +155,16 @@ export default {
     },
     download(url, date) {
       this.showSnackbar=true;
-      new JsFileDownloader({
-        url,
-        filename: new Date(date).toLocaleDateString() + "_Bing.jpg",
-      }).then(()=>{
+      // new JsFileDownloader({
+      //   url,
+      //   filename: new Date(date).toLocaleDateString() + "_Bing.jpg",
+      // }).then(()=>{
+      //   this.showSnackbar=false;
+      // });
+      FileSaver.saveAs(url, new Date(date).toLocaleDateString() + "_Bing.jpg");
+      setTimeout(() => {
         this.showSnackbar=false;
-      });
-      
+      }, 2000);
     },
   },
   watch: {
