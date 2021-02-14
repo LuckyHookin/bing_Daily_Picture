@@ -145,12 +145,12 @@ export default {
       this.showEye = true;
     },
     getTitle(value = "") {
-      let lastIndex = value.indexOf("(©");
-      return value.slice(0, lastIndex);
+      let lastIndex = value.indexOf("©");
+      return value.slice(0, lastIndex-1);
     },
     getCopyright(value = "") {
-      let firstIndex = value.indexOf("(©");
-      return value.slice(firstIndex + 1, -1);
+      let firstIndex = value.indexOf("©");
+      return value.slice(firstIndex, -1);
     },
     download(url, date) {
       this.showSnackbar=true;
