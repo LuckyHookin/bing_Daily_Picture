@@ -32,7 +32,7 @@
         <div class="text-right">
           仅提供检索服务.
           <v-btn color="info" text @click="link('//hookin.fun')"
-            ><v-icon left>mdi-home</v-icon>我的小破招</v-btn
+            ><v-icon left>mdi-home</v-icon>我的小破站</v-btn
           >
         </div>
       </v-col>
