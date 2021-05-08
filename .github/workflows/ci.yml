@@ -15,9 +15,9 @@ jobs:
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.1
         with:
-          TOKEN: ${{ secrets.DEPLOY_REPO_TOKEN }}
-          BRANCH: deploy # The branch the action should deploy to.
-          FOLDER: dist # The folder the action should deploy.
-          CLEAN: false # Automatically remove deleted files from the deploy branch
-          REPOSITORY_NAME: LuckyHookin/static
-          TARGET_FOLDER: hookin-fun
+          token: ${{ secrets.DEPLOY_REPO_TOKEN }}
+          branch: deploy # The branch the action should deploy to.
+          folder: dist # The folder the action should deploy.
+          clean: false # Automatically remove deleted files from the deploy branch
+          repository-name: LuckyHookin/static
+          target-folder: hookin-fun
