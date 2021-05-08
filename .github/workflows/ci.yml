@@ -13,8 +13,9 @@ jobs:
         run: |
           npm install
           npm run build
+
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+        uses: JamesIves/github-pages-deploy-action@4.1.1
         with:
           ACCESS_TOKEN: ${{ secrets.DEPLOY_REPO_TOKEN }}
           BRANCH: deploy # The branch the action should deploy to.
